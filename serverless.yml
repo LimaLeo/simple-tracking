@@ -1,0 +1,41 @@
+service: simple-tracking
+
+plugins:
+  - serverless-python-requirements
+  - serverless-stage-manager
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+  stages:
+    - dev
+    - stage
+    - prod
+
+package:
+  exclude:
+    - .git/**
+    - node_modules/**
+    - venv/**
+    - __pycache__/**
+    - requirements.txt
+    - package-lock.json
+    - package.json
+    - README.md
+
+provider:
+  name: aws
+  region: us-east-1
+  runtime: python3.6
+  stage: ${opt:stage,'dev'}
+
+functions:
+  hello:
+    handler: src/functions/handler.hello
+    name: ${self:provider.stage}-lambdaName
+    description: Description of what the lambda function does
+    runtime: python3.6
+    memorySize: 512
+    timeout: 10
+    reservedConcurrency: 5
+    tracing: PassThrough
