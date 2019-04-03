@@ -30,9 +30,49 @@ provider:
   stage: ${opt:stage,'dev'}
 
 functions:
-  hello:
-    handler: src/functions/handler.hello
-    name: ${self:provider.stage}-lambdaName
+  rule_create:
+    handler: src/functions/rule/create._rule_create
+    name: ${self:provider.stage}-ruleCreate
+    description: Description of what the lambda function does
+    runtime: python3.6
+    memorySize: 512
+    timeout: 10
+    reservedConcurrency: 5
+    tracing: PassThrough
+
+  rule_delete:
+    handler: src/functions/rule/delete.delete
+    name: ${self:provider.stage}-ruleDelete
+    description: Description of what the lambda function does
+    runtime: python3.6
+    memorySize: 512
+    timeout: 10
+    reservedConcurrency: 5
+    tracing: PassThrough
+
+  rule_get_by_id:
+    handler: src/functions/rule/get_by_id.get_by_id
+    name: ${self:provider.stage}-ruleGetById
+    description: Description of what the lambda function does
+    runtime: python3.6
+    memorySize: 512
+    timeout: 10
+    reservedConcurrency: 5
+    tracing: PassThrough
+
+  queue_push:
+    handler: src/functions/queue/push.push
+    name: ${self:provider.stage}-queuePush
+    description: Description of what the lambda function does
+    runtime: python3.6
+    memorySize: 512
+    timeout: 10
+    reservedConcurrency: 5
+    tracing: PassThrough
+
+  scraping_run:
+    handler: src/functions/scraping/run.run
+    name: ${self:provider.stage}-scrapingRun
     description: Description of what the lambda function does
     runtime: python3.6
     memorySize: 512
