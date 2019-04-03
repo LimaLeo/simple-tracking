@@ -11,6 +11,8 @@ custom:
     - dev
     - stage
     - prod
+  stage: ${opt:stage, self:provider.stage}
+  environment: ${file(env.yml):${self:custom.stage}, file(env.yml):dev}
 
 package:
   exclude:
@@ -28,6 +30,9 @@ provider:
   region: us-east-1
   runtime: python3.6
   stage: ${opt:stage,'dev'}
+  environment:
+    AWS_ACCESS_KEY_ID: ${self:custom.environment.awsAccessKeyId}
+    AWS_SECRET_ACCESS_KEY: ${self:custom.environment.awsSecretAccessKey}
 
 functions:
   rule_create:
