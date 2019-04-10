@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 
 import boto3
+import os
+import json
 
-
-aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID']
-aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY']
-
+aws_access_key_id_local = os.environ['AWS_ACCESS_KEY_ID_LOCAL']
+aws_secret_access_key_local = os.environ['AWS_SECRET_ACCESS_KEY_LOCAL']
 
 def push(_event, _context):
-    client = boto3.client('events', aws_access_key_id=aws_access_key_id,aws_secret_access_key=aws_secret_access_key)
-
-    response = client.list_rules(NamePrefix='test')
-
-    print(response)
+    sqs = boto3.client('sqs', aws_access_key_id=aws_access_key_id_local,aws_secret_access_key=aws_secret_access_key_local)
+    response = sqs.create_queue(
+        QueueName='SQS_QUEUE_NAME',
+        Attributes={
+            'DelaySeconds': '10',
+            'MessageRetentionPeriod': '86400'
+        }
+    )
     return {'statusCode': 201,
-            'body': "test"}
+            'body': json.dumps(response)}

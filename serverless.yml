@@ -31,8 +31,8 @@ provider:
   runtime: python3.6
   stage: ${opt:stage,'dev'}
   environment:
-    AWS_ACCESS_KEY_ID: ${self:custom.environment.awsAccessKeyId}
-    AWS_SECRET_ACCESS_KEY: ${self:custom.environment.awsSecretAccessKey}
+    AWS_ACCESS_KEY_ID_LOCAL: ${self:custom.environment.awsAccessKeyIdLocal}
+    AWS_SECRET_ACCESS_KEY_LOCAL: ${self:custom.environment.awsSecretAccessKeyLocal}
 
 functions:
   rule_create:
