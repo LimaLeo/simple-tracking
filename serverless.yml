@@ -33,6 +33,8 @@ provider:
   environment:
     AWS_ACCESS_KEY_ID_LOCAL: ${self:custom.environment.awsAccessKeyIdLocal}
     AWS_SECRET_ACCESS_KEY_LOCAL: ${self:custom.environment.awsSecretAccessKeyLocal}
+    TRACKING_API: ${self:custom.environment.trackingApi}
+    X_API_KEY_TRACKING_API: ${self:custom.environment.xApiKeyTrackingApi}
 
 functions:
   rule_create:
