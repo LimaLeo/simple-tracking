@@ -34,6 +34,8 @@ def get_data(_group_id):
 
 
 def get_xpath_to_tag(_tag):
+    _tag = _tag.replace('.', ' ')
+    _tag = _tag.replace('//', '/')
     tag_group = re.search("<.+?>", _tag).group()
     tag_name = re.search(r"<(\w+)(\s)", tag_group).group().replace("<", "").replace(" ", "")
     atribute = re.search(r"(\w+)\=.+?'", tag_group).group()
